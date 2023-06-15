@@ -19,7 +19,8 @@ initialize.o: initialize.c initialize.h engine_options.h display.h \
 main_loop.o: main_loop.c main_loop.h eventqueue.h render_timer.h engine_options.h
 	gcc -c main_loop.c $(debug_flags)
 
-shutdown.o: shutdown.c shutdown.h eventqueue.h display.h render_timer.h
+shutdown.o: shutdown.c shutdown.h eventqueue.h display.h render_timer.h \
+            engine_options.h
 	gcc -c shutdown.c $(debug_flags)
 
 error_handling.o: error_handling.c error_handling.h

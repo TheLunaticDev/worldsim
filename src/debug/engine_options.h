@@ -3,10 +3,8 @@
 #define ENGINE_OPTIONS_H
 
 typedef struct engine_options engine_options;
-engine_options* engine_options_initialize();
-void engine_options_shutdown(engine_options* loptions);
-
 void initialize_engine_options(ALLEGRO_CONFIG* config);
+void shutdown_engine_options();
 
 int get_display_width();
 int get_display_height();

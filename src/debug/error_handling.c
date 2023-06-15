@@ -12,12 +12,6 @@ void handle_installation_error(int code)
     case ENGINE_CONFIG_NOT_FOUND:
       fprintf(stderr, "Failed to load engine.config config file!\n");
       break;
-    case ENGINE_CONFIG_NO_DISPLAY_WIDTH:
-      fprintf(stderr, "Invalid width value in [display] in engine.config\n");
-      break;
-    case ENGINE_CONFIG_NO_DISPLAY_HEIGHT:
-      fprintf(stderr, "Invalid height value in [display] in engine.config\n");
-      break;
     case MAIN_DISPLAY_CREATION_FAILED:
       fprintf(stderr, "Failed to create the main display!\n");
       break;
@@ -30,12 +24,11 @@ void handle_installation_error(int code)
     case ALLEGRO_PRIMITIVES_ADDON_INSTALLATION_FAILED:
       fprintf(stderr, "Failed to initialize the allegro primitives addon!\n");
       break;
-    case ENGINE_CONFIG_NO_RENDER_RATE:
-      fprintf(stderr, "Invalid render rate value in [engine] in engine.config\n");
-      break;
     case RENDER_TIMER_FAILED:
       fprintf(stderr, "Failed to create the render timer.\n");
       break;
+    case MEMORY_ALLOCATION_FAILED_OPTIONS:
+      fprintf(stderr, "Malloc returned NULL when trying to allocate space for options in engine options.\n");
     default:
       fprintf(stderr, "Unknown error code supplied...\n");
     }
