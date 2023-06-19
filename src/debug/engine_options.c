@@ -46,7 +46,11 @@ void shutdown_engine_options()
 
 void initialize_display_resolution(ALLEGRO_CONFIG* config)
 {
-  const char* resolution = al_get_config_value(config, "display", "resolution");
+  const char* resolution;
+  if (config != NULL)
+    resolution = al_get_config_value(config, "display", "resolution");
+  else
+    resolution = NULL;
   
   int width, height;
   int chosen = 0;
@@ -91,7 +95,12 @@ void initialize_display_resolution(ALLEGRO_CONFIG* config)
 
 void paint_display_background(ALLEGRO_CONFIG* config)
 {
-  const char* color = al_get_config_value(config, "display", "background");
+  const char* color;
+  if (config != NULL)
+    color = al_get_config_value(config, "display", "background");
+  else
+    color = NULL;
+  
   if (color == NULL)
     color = "#282a36";
   options->display_background = hex_to_color(color);
@@ -99,7 +108,12 @@ void paint_display_background(ALLEGRO_CONFIG* config)
 
 void initialize_render_rate(ALLEGRO_CONFIG* config)
 {
-  const char* render_rate = al_get_config_value(config, "engine", "render rate");
+  const char* render_rate;
+  if (config != NULL)
+    render_rate = al_get_config_value(config, "engine", "render rate");
+  else
+    render_rate = NULL;
+  
   if (render_rate == NULL)
     render_rate = "60";
 
@@ -117,7 +131,12 @@ void initialize_world_drawing_properties(ALLEGRO_CONFIG* config)
     options->world_position = 20;
     options->world_thickness = 2;
 
-    const char* color = al_get_config_value(config, "world", "color");
+    const char* color = NULL;
+    if (config != NULL)
+      color = al_get_config_value(config, "world", "color");
+    else
+      color = NULL;
+    
     if (color == NULL)
       color = "#44475a";
     options->world_color = hex_to_color(color);
@@ -125,7 +144,12 @@ void initialize_world_drawing_properties(ALLEGRO_CONFIG* config)
 
 void initialize_world_properties(ALLEGRO_CONFIG* config)
 {
-  const char* size = al_get_config_value(config, "world", "size");
+  const char* size;
+  if (config != NULL)
+    size = al_get_config_value(config, "world", "size");
+  else
+    size = NULL;
+  
   int isize = 0;
   
   if (size == NULL)
