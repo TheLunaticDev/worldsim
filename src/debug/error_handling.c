@@ -26,6 +26,9 @@ void handle_installation_error(int code)
       break;
     case MEMORY_ALLOCATION_FAILED_OPTIONS:
       fprintf(stderr, "Malloc returned NULL when trying to allocate space for options in engine options.\n");
+    case WORLD_CYCLE_TIMER_FAILED:
+      fprintf(stderr, "Failed to create the world cycle timer.\n");
+      break;
     default:
       fprintf(stderr, "Unknown error code supplied...\n");
     }

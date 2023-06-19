@@ -2,11 +2,14 @@
 #include "eventqueue.h"
 #include "render_timer.h"
 #include "engine_options.h"
+#include "world_cycle_timer.h"
+#include "world.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
 void redraw_display();
 int handle_keyboard_input();
+void handle_timer_input(ALLEGRO_EVENT event);
 void draw_world_border();
 void draw_world_lines();
 void draw_horizontal_lines(int i);
@@ -21,7 +24,7 @@ int mainLoop()
       al_wait_for_event(get_event_queue(), &event);
 
       if (event.type == ALLEGRO_EVENT_TIMER)
-	redraw_display();
+	handle_timer_input(event);
       
       if (event.type == ALLEGRO_EVENT_KEY_DOWN)
 	status = handle_keyboard_input();
@@ -48,7 +51,22 @@ int handle_keyboard_input()
   if (al_key_down(&kbd_state, ALLEGRO_KEY_ESCAPE))
     return 1;
 
+  if (al_key_down(&kbd_state, ALLEGRO_KEY_SPACE))
+    {
+      calculate_next_world();
+      return 0;
+    }
+
   return 0;
+}
+
+void handle_timer_input(ALLEGRO_EVENT event)
+{
+  if (event.timer.source == get_world_cycle_timer())
+    calculate_next_world();
+
+  if (event.timer.source == get_render_timer()) 
+    redraw_display();
 }
 
 void draw_world_border()

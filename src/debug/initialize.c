@@ -4,6 +4,7 @@
 #include "display.h"
 #include "eventqueue.h"
 #include "render_timer.h"
+#include "world_cycle_timer.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
@@ -31,6 +32,9 @@ int system_install()
 
   create_render_timer();
   al_start_timer(get_render_timer());
+
+  create_world_cycle_timer();
+  al_start_timer(get_world_cycle_timer());
 
   create_event_queue();
   
