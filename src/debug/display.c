@@ -12,3 +12,13 @@ int create_main_display()
   else
     return 1;
 }
+
+void destroy_main_display()
+{
+  al_destroy_display(main_display);
+}
+
+ALLEGRO_DISPLAY* get_main_display()
+{
+  return main_display;
+}

@@ -13,10 +13,7 @@ int system_install()
     return ALLEGRO_INSTALLATION_FAILED;
 
   ALLEGRO_CONFIG* config = al_load_config_file("engine.config");
-  if (config == NULL)
-    return ENGINE_CONFIG_NOT_FOUND;
-
-  // Read value from the engine.config and load a structure with those values
+  
   initialize_engine_options(config);
   al_destroy_config(config);
 
@@ -33,7 +30,7 @@ int system_install()
     return ALLEGRO_PRIMITIVES_ADDON_INSTALLATION_FAILED;
 
   create_render_timer();
-  al_start_timer(render_timer);
+  al_start_timer(get_render_timer());
 
   create_event_queue();
   

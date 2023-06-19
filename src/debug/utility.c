@@ -13,6 +13,11 @@ ALLEGRO_COLOR hex_to_color(const char* value)
   blue[0] = value[5];
   blue[1] = value[6];
 
+  if (!(isHex(red[0]) && isHex(red[1]) &&
+	isHex(green[0]) && isHex(green[1]) &&
+	isHex(blue[0]) && isHex(blue[1])))
+    return al_map_rgb(0, 0, 0);
+
   ired = hex_to_int(red[0]) * 16 + hex_to_int(red[1]);
   igreen = hex_to_int(green[0]) * 16 + hex_to_int(green[1]);
   iblue = hex_to_int(blue[0]) * 16 + hex_to_int(blue[1]);
@@ -20,7 +25,7 @@ ALLEGRO_COLOR hex_to_color(const char* value)
   return al_map_rgb(ired, igreen, iblue);
 }
 
-int hex_to_int(char ch)
+int hex_to_int(const char ch)
 {
   switch(ch)
     {
@@ -64,4 +69,36 @@ int hex_to_int(char ch)
       return 15;
     }
   return -1;
+}
+
+int isHex(const char x)
+{
+  switch(x)
+    {
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+    case 'a':
+    case 'A':
+    case 'b':
+    case 'B':
+    case 'c':
+    case 'C':
+    case 'd':
+    case 'D':
+    case 'e':
+    case 'E':
+    case 'f':
+    case 'F':
+      return 1;
+    default:
+      return 0;
+    }
 }

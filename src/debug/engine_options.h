@@ -10,11 +10,9 @@ int get_display_width();
 int get_display_height();
 int get_render_refresh_rate();
 ALLEGRO_COLOR get_display_background();
-int get_world_width();
-int get_world_height();
+int get_world_border_size();
 int get_world_size();
-int get_world_positionx();
-int get_world_positiony();
+int get_world_position();
 int get_world_thickness();
 ALLEGRO_COLOR get_world_color();
 #endif

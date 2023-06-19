@@ -9,9 +9,6 @@ void handle_installation_error(int code)
     case ALLEGRO_INSTALLATION_FAILED:
       fprintf(stderr, "Failed to initialize the Allegro library!\n");
       break;
-    case ENGINE_CONFIG_NOT_FOUND:
-      fprintf(stderr, "Failed to load engine.config config file!\n");
-      break;
     case MAIN_DISPLAY_CREATION_FAILED:
       fprintf(stderr, "Failed to create the main display!\n");
       break;

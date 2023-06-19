@@ -16,9 +16,9 @@ int mainLoop()
 {
   int status = 0;
   ALLEGRO_EVENT event;
-  if (!al_is_event_queue_empty(queue))
+  if (!al_is_event_queue_empty(get_event_queue()))
     {
-      al_wait_for_event(queue, &event);
+      al_wait_for_event(get_event_queue(), &event);
 
       if (event.type == ALLEGRO_EVENT_TIMER)
 	redraw_display();
@@ -53,8 +53,8 @@ int handle_keyboard_input()
 
 void draw_world_border()
 {
-  al_draw_rectangle(get_world_positionx(), get_world_positiony(),
-		    get_world_width() + get_world_positionx(), get_world_height() + get_world_positiony(),
+  al_draw_rectangle(get_world_position(), get_world_position(),
+		    get_world_border_size() + get_world_position(), get_world_border_size() + get_world_position(),
 		    get_world_color(), get_world_thickness());
 }
 
@@ -69,18 +69,18 @@ void draw_world_lines()
 
 void draw_horizontal_lines(int i)
 {
-  al_draw_line(get_world_positionx() + ((float)get_world_width() / get_world_size()) * i,
-	       get_world_positiony(),
-	       get_world_positionx() + ((float)get_world_width() / get_world_size()) * i,
-	       get_world_positiony() + get_world_height(),
+  al_draw_line(get_world_position() + ((float)get_world_border_size() / get_world_size()) * i,
+	       get_world_position(),
+	       get_world_position() + ((float)get_world_border_size() / get_world_size()) * i,
+	       get_world_position() + get_world_border_size(),
 	       get_world_color(), 1);
 }
 
 void draw_vertical_lines(int i)
 {
-  al_draw_line(get_world_positionx(),
-		get_world_positiony() + ((float)get_world_height() / get_world_size()) * i,
-		get_world_positionx() + get_world_width(),
-		get_world_positiony() + ((float)get_world_height() / get_world_size()) * i,
+  al_draw_line(get_world_position(),
+		get_world_position() + ((float)get_world_border_size() / get_world_size()) * i,
+		get_world_position() + get_world_border_size(),
+		get_world_position() + ((float)get_world_border_size() / get_world_size()) * i,
 		get_world_color(), 1);
 }

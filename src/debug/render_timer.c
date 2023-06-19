@@ -9,3 +9,13 @@ void create_render_timer()
   if (render_timer == NULL)
     handle_installation_error(RENDER_TIMER_FAILED);
 }
+
+void destroy_render_timer()
+{
+  al_destroy_timer(render_timer);
+}
+
+ALLEGRO_TIMER* get_render_timer()
+{
+  return render_timer;
+}

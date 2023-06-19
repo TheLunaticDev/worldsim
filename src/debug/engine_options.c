@@ -11,11 +11,9 @@ struct engine_options
   int display_height;
   int render_refresh_rate;
   ALLEGRO_COLOR display_background;
-  int world_width;
-  int world_height;
+  int world_border_size;
   int world_size;
-  int world_positionx;
-  int world_positiony;
+  int world_position;
   int world_thickness;
   ALLEGRO_COLOR world_color;
 };
@@ -25,6 +23,8 @@ engine_options* options = NULL;
 void initialize_display_resolution(ALLEGRO_CONFIG* config);
 void paint_display_background(ALLEGRO_CONFIG* config);
 void initialize_render_rate(ALLEGRO_CONFIG* config);
+void initialize_world_drawing_properties(ALLEGRO_CONFIG* config);
+void initialize_world_properties(ALLEGRO_CONFIG* config);
 
 void initialize_engine_options(ALLEGRO_CONFIG* config)
 {
@@ -35,14 +35,8 @@ void initialize_engine_options(ALLEGRO_CONFIG* config)
   initialize_display_resolution(config);
   paint_display_background(config);
   initialize_render_rate(config);
-  
-  options->world_width = atoi(al_get_config_value(config, "world", "width"));
-  options->world_height = atoi(al_get_config_value(config, "world", "height"));
-  options->world_size = atoi(al_get_config_value(config, "world", "size"));
-  options->world_positionx = atoi(al_get_config_value(config, "world", "positionx"));
-  options->world_positiony = atoi(al_get_config_value(config, "world", "positiony"));
-  options->world_thickness = atoi(al_get_config_value(config, "world", "thickness"));
-  options->world_color = hex_to_color(al_get_config_value(config, "world", "color"));
+  initialize_world_drawing_properties(config);
+  initialize_world_properties(config);
 }
 
 void shutdown_engine_options()
@@ -64,20 +58,6 @@ void initialize_display_resolution(ALLEGRO_CONFIG* config)
       chosen = 1;
     }
 
-  if (!chosen && (strcmp(resolution, "720x400") == 0))
-    {
-      width = 720;
-      height = 400;
-      chosen = 1;
-    }
-
-  if (!chosen && (strcmp(resolution, "640x480") == 0))
-    {
-      width = 640;
-      height = 480;
-      chosen = 1;
-    }
-  
   if (!chosen && (strcmp(resolution, "800x600") == 0))
     {
       width = 800;
@@ -98,14 +78,7 @@ void initialize_display_resolution(ALLEGRO_CONFIG* config)
       height = 768;
       chosen = 1;
     }
-
-  if (!chosen && (strcmp(resolution, "1366x768") == 0))
-    {
-      width = 1366;
-      height = 768;
-      chosen = 1;
-    }
-
+  
   if (!chosen)
     {
       width = 800;
@@ -138,6 +111,31 @@ void initialize_render_rate(ALLEGRO_CONFIG* config)
   options->render_refresh_rate = atoi(render_rate);
 }
 
+void initialize_world_drawing_properties(ALLEGRO_CONFIG* config)
+{
+    options->world_border_size = 500;
+    options->world_position = 20;
+    options->world_thickness = 2;
+
+    const char* color = al_get_config_value(config, "world", "color");
+    if (color == NULL)
+      color = "#44475a";
+    options->world_color = hex_to_color(color);
+}
+
+void initialize_world_properties(ALLEGRO_CONFIG* config)
+{
+  const char* size = al_get_config_value(config, "world", "size");
+  int isize = 0;
+  
+  if (size == NULL)
+    isize = 50;
+  else
+    isize = atoi(size);
+
+  options->world_size = isize;
+}
+    
 int get_display_width()
 {
   return options->display_width;
@@ -158,14 +156,9 @@ ALLEGRO_COLOR get_display_background()
   return options->display_background;
 }
 
-int get_world_width()
+int get_world_border_size()
 {
-  return options->world_width;
-}
-
-int get_world_height()
-{
-  return options->world_height;
+  return options->world_border_size;
 }
 
 int get_world_size()
@@ -173,14 +166,9 @@ int get_world_size()
   return options->world_size;
 }
 
-int get_world_positionx()
+int get_world_position()
 {
-  return options->world_positionx;
-}
-
-int get_world_positiony()
-{
-  return options->world_positiony;
+  return options->world_position;
 }
 
 int get_world_thickness()
