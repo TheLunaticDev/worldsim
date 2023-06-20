@@ -1,4 +1,5 @@
 #include "world_cycle_timer.h"
+#include "engine_options.h"
 #include "error_handling.h"
 
 ALLEGRO_TIMER* world_cycle_timer = NULL;
@@ -28,4 +29,18 @@ double get_world_cycle_rate()
 void set_world_cycle_rate(double value)
 {
   al_set_timer_speed(world_cycle_timer, value);
+}
+
+void increase_world_cycle_timer_speed()
+{
+  double time = al_get_timer_speed(world_cycle_timer) - get_world_cycle_timer_step();
+  if (time <= 0)
+    return;
+  else
+    al_set_timer_speed(world_cycle_timer, time);
+}
+
+void decrease_world_cycle_timer_speed()
+{
+  al_set_timer_speed(world_cycle_timer, al_get_timer_speed(world_cycle_timer) + get_world_cycle_timer_step());
 }

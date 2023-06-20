@@ -51,12 +51,34 @@ int handle_keyboard_input()
   if (al_key_down(&kbd_state, ALLEGRO_KEY_ESCAPE))
     return 1;
 
+  if (al_key_down(&kbd_state, ALLEGRO_KEY_SPACE) && (al_key_down(&kbd_state, ALLEGRO_KEY_LSHIFT) || al_key_down(&kbd_state, ALLEGRO_KEY_RSHIFT)))
+    {
+      if (al_get_timer_started(get_world_cycle_timer()))
+	  al_stop_timer(get_world_cycle_timer());
+      else if (!al_get_timer_started(get_world_cycle_timer()))
+	  al_resume_timer(get_world_cycle_timer());
+
+      return 0;
+    }
+
+  if (al_key_down(&kbd_state, ALLEGRO_KEY_UP))
+    {
+      increase_world_cycle_timer_speed();
+      return 0;
+    }
+
+  if (al_key_down(&kbd_state, ALLEGRO_KEY_DOWN))
+    {
+      decrease_world_cycle_timer_speed();
+      return 0;
+    }
+
   if (al_key_down(&kbd_state, ALLEGRO_KEY_SPACE))
     {
       calculate_next_world();
       return 0;
     }
-
+  
   return 0;
 }
 

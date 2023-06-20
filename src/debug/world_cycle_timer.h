@@ -8,4 +8,6 @@ ALLEGRO_TIMER* get_world_cycle_timer();
 
 double get_world_cycle_rate();
 void set_world_cycle_rate(double value);
+void increase_world_cycle_timer_speed();
+void decrease_world_cycle_timer_speed();
 #endif

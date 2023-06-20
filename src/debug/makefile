@@ -32,7 +32,7 @@ eventqueue.o: eventqueue.c eventqueue.h display.h render_timer.h world_cycle_tim
 render_timer.o: render_timer.c render_timer.h engine_options.h error_handling.h
 	gcc -c render_timer.c $(debug_flags)
 
-world_cycle_timer.o: world_cycle_timer.c world_cycle_timer.h error_handling.h
+world_cycle_timer.o: world_cycle_timer.c world_cycle_timer.h error_handling.h engine_options.h
 	gcc -c world_cycle_timer.c $(debug_flags)
 
 world.o: world.c world.h

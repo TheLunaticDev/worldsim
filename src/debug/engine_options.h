@@ -15,4 +15,5 @@ int get_world_size();
 int get_world_position();
 int get_world_thickness();
 ALLEGRO_COLOR get_world_color();
+double get_world_cycle_timer_step();
 #endif

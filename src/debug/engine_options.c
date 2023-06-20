@@ -16,6 +16,7 @@ struct engine_options
   int world_position;
   int world_thickness;
   ALLEGRO_COLOR world_color;
+  double world_cycle_timer_step;
 };
 
 engine_options* options = NULL;
@@ -145,10 +146,22 @@ void initialize_world_drawing_properties(ALLEGRO_CONFIG* config)
 void initialize_world_properties(ALLEGRO_CONFIG* config)
 {
   const char* size;
+  double step = 0.0;
+
   if (config != NULL)
-    size = al_get_config_value(config, "world", "size");
+    {
+      size = al_get_config_value(config, "world", "size");
+      const char* val = al_get_config_value(config, "world", "step");
+      if (val == NULL)
+	step = 0.1;
+      else
+	step = atof(val);
+    }
   else
-    size = NULL;
+    {
+      size = NULL;
+      step = 0.1;
+    }
   
   int isize = 0;
   
@@ -158,6 +171,7 @@ void initialize_world_properties(ALLEGRO_CONFIG* config)
     isize = atoi(size);
 
   options->world_size = isize;
+  options->world_cycle_timer_step = step;
 }
     
 int get_display_width()
@@ -205,3 +219,7 @@ ALLEGRO_COLOR get_world_color()
   return options->world_color;
 }
 
+double get_world_cycle_timer_step()
+{
+  return options->world_cycle_timer_step;
+}
